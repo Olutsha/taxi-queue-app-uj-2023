@@ -7,28 +7,36 @@ const  db = await sqlite.open({
 });
 
 await db.migrate();
-
 export async function joinQueue() {
-    // console.log('join queue')
-
+    db.run('update passenger_queue_count set passenger_queue_count = +1')
 }
 
 export async function leaveQueue() {
-    
+db.run('update passenger_queue_count set passenger_queue_count = -1')
 }
 
 export async function joinTaxiQueue() {
-   
+//    taxiQueue ++
 }
 
 export async function queueLength() {
-       
+    
+    // if (queue.length > 0) {
+    //     queue.pop();
+    // }
+    // return queue
+
 }
 
 export async function taxiQueueLength() {
-
+    // return taxiQueue
 }
 
-export function taxiDepart() {
-
+export async function taxiDepart() {
+    // if (this.queue.length >= 12) {
+    //     this.taxiQueue.pop(); 
+    //     for (let i = 0; i < 12; i++) {
+    //         this.queue.pop(); 
+    //     }
+    // }
 }

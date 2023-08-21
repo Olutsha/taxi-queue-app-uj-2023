@@ -1,60 +1,44 @@
 document.addEventListener('alpine:init', () => {
 
-	Alpine.data('TaxiQueue', () => {
+    Alpine.data('TaxiQueue', () => {
 
-		return {
-			version: 'api-1.0',
-			queueLength : 0,
-			init() {
-				axios
-					.get('/api/passenger/queue')
-					.then(result => {
-						// an example API call
-						this.queueLength = result.data.queueCount
-					});
-			}
-		}
+        return {
+            version: 'no-api-1.0',
+            queue: [],
+            taxiQueue:[],
+                    joinQueue() {
+                        this.queue.push('name');
+                    },
+                    leaveQueue() {
+                        if (this.queue.length > 0) {
+                            this.queue.pop();
+                        }
+                    },
+                    queueLength() {
+                        return this.queue.length;
+                    },
+                    joinTaxiQueue() {
+                        this.taxiQueue.push('Taxiz');
+                    },
 
-	});
+                    taxiQueueLength() {
+                    return this.taxiQueue.length;
+                    },
 
-
-	function TaxiQueue() {
-
-
-		function joinQueue() {
-	
-		}
-	
-		function leaveQueue() {
-	
-		}
-	
-		function joinTaxiQueue() {
-	
-		}
-	
-		function queueLength() {
-	
-		}
-	
-		function taxiQueueLength() {
-	
-		}
-	
-		function taxiDepart(){
-	
-		}
-	
-		return {
-			joinQueue,
-			leaveQueue,
-			joinTaxiQueue,
-			queueLength,
-			taxiQueueLength,
-			taxiDepart
-		}
-	}
+                    taxiDepart() {
+                        if (this.queue.length >= 12) {
+                            this.taxiQueue.pop(); 
+                            for (let i = 0; i < 12; i++) {
+                                this.queue.pop(); 
+                            }
+                        }
+                    }
+                }
+    });
 
 });
+
+
+
 
 
